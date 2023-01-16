@@ -3,3 +3,5 @@
 Downloads & Sends AI generated photos of non existing humans.
 
 Just for fun!
+
+Requires python-telegram-bot.
