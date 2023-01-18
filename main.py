@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-import logging, configparser
+import logging, configparser, requests
 
 config = configparser.ConfigParser()
 config.read_file(open("./token.config", mode="r"))
@@ -15,10 +15,14 @@ def main():
         level=logging.INFO,
     )
 
+    def download_photo():
+        res = requests.get("https://thispersondoesnotexist.com/image", stream = True)
+        return res.raw
+
     async def neu(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         chat_id = update.message.chat_id
         await context.bot.send_photo(
-            chat_id=chat_id, photo="https://thispersondoesnotexist.com/image"
+            chat_id=chat_id, photo=download_photo()
         )
 
     async def start(update, context: ContextTypes.DEFAULT_TYPE) -> None:
